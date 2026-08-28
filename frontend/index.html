@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NeedFinder Global</title>
+
+  <meta
+    name="description"
+    content="NeedFinder Global connects customers with products, services, property, jobs and other legal needs worldwide."
+  >
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f7fb;
+      color: #172033;
+      line-height: 1.5;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92%);
+      margin: auto;
+    }
+
+    /* HEADER */
+
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      color: #1457d9;
+      white-space: nowrap;
+    }
+
+    .logo span {
+      color: #111827;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: #4b5563;
+      font-size: 15px;
+    }
+
+    nav a:hover {
+      color: #1457d9;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 10px;
+      padding: 11px 18px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: 0.2s;
+    }
+
+    .btn-primary {
+      background: #1457d9;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #0f46b4;
+    }
+
+    .btn-light {
+      background: #eef3ff;
+      color: #1457d9;
+    }
+
+    .btn-light:hover {
+      background: #dfe8ff;
+    }
+
+    /* HERO */
+
+    .hero {
+      background:
+        radial-gradient(circle at top right, #dce8ff 0, transparent 35%),
+        linear-gradient(135deg, #eef4ff, #ffffff);
+      padding: 80px 0 70px;
+    }
+
+    .hero-content {
+      max-width: 850px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #e5edff;
+      color: #1457d9;
+      border-radius: 30px;
+      padding: 7px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 6vw, 66px);
+      line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      color: #1457d9;
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin: auto;
+      color: #596579;
+      font-size: 18px;
+    }
+
+    /* SEARCH */
+
+    .search-box {
+      background: white;
+      margin: 35px auto 0;
+      padding: 10px;
+      border-radius: 16px;
+      box-shadow: 0 12px 40px rgba(25, 45, 90, 0.12);
+      display: grid;
+      grid-template-columns: 1fr 190px 150px;
+      gap: 10px;
+      max-width: 850px;
+    }
+
+    .search-box input,
+    .search-box select {
+      border: 1px solid #d9dee8;
+      border-radius: 10px;
+      padding: 14px;
+      outline: none;
+      background: white;
+    }
+
+    .search-box input:focus,
+    .search-box select:focus {
+      border-color: #1457d9;
+    }
+
+    /* SECTIONS */
+
+    section {
+      padding: 65px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .section-title h2 {
+      font-size: 34px;
+      margin-bottom: 8px;
+    }
+
+    .section-title p {
+      color: #6b7280;
+    }
+
+    /* CATEGORIES */
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    .category {
+      background: white;
+      padding: 24px 16px;
+      border-radius: 15px;
+      border: 1px solid #e5e7eb;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .category:hover {
+      transform: translateY(-4px);
+      border-color: #b9ccff;
+      box-shadow: 0 8px 25px rgba(20, 87, 217, 0.08);
+    }
+
+    .category-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .category h3 {
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    .category p {
+      color: #7b8494;
+      font-size: 13px;
+    }
+
+    /* HOW IT WORKS */
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .step {
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .step-number {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #e5edff;
+      color: #1457d9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .step h3 {
+      margin-bottom: 8px;
+    }
+
+    .step p {
+      color: #6b7280;
+    }
+
+    /* REQUIREMENT */
+
+    .requirement-section {
+      background: #101828;
+      color: white;
+    }
+
+    .requirement-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .requirement-copy h2 {
+      font-size: 40px;
+      line-height: 1.1;
+      margin-bottom: 18px;
+    }
+
+    .requirement-copy p {
+      color: #b9c1cf;
+      margin-bottom: 22px;
+    }
+
+    .requirement-form {
+      background: white;
+      color: #172033;
+      padding: 28px;
+      border-radius: 18px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      border: 1px solid #d9dee8;
+      border-radius: 9px;
+      padding: 12px;
+      outline: none;
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: #ffffff;
+      border-top: 1px solid #e5e7eb;
+      padding: 35px 0;
+    }
+
+    .footer-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .footer-content p {
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 900px) {
+      nav {
+        display: none;
+      }
+
+      .categories {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .search-box {
+        grid-template-columns: 1fr;
+      }
+
+      .requirement-wrapper {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        padding: 55px 0;
+      }
+
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      .categories {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-actions .btn-light {
+        display: none;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+
+  <header>
+    <div class="container nav">
+
+      <a href="#" class="logo">
+        NeedFinder<span>Global</span>
+      </a>
+
+      <nav>
+        <a href="#categories">Categories</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#post-need">Post a Need</a>
+        <a href="#provider">For Providers</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn btn-light" onclick="showMessage('Login will be added in the next step.')">
+          Login
+        </button>
+
+        <button class="btn btn-primary" onclick="scrollToNeed()">
+          Post a Need
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- HERO -->
+
+  <main>
+
+    <section class="hero">
+
+      <div class="container hero-content">
+
+        <div class="badge">
+          🌍 Global marketplace for real-world needs
+        </div>
+
+        <h1>
+          Tell us what you <span>need.</span><br>
+          Find who can provide it.
+        </h1>
+
+        <p>
+          Search products, services, property, vehicles, jobs,
+          remote work and other legal requirements anywhere in the world.
+        </p>
+
+        <div class="search-box">
+
+          <input
+            id="searchInput"
+            type="text"
+            placeholder="What are you looking for?"
+          >
+
+          <select id="countrySelect">
+            <option value="">Select country</option>
+            <option>India</option>
+            <option>United States</option>
+            <option>United Kingdom</option>
+            <option>Canada</option>
+            <option>Australia</option>
+            <option>United Arab Emirates</option>
+            <option>Germany</option>
+            <option>Singapore</option>
+          </select>
+
+          <button class="btn btn-primary" onclick="searchNeed()">
+            Search
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CATEGORIES -->
+
+    <section id="categories">
+
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Explore Categories</h2>
+          <p>Whatever you need, start your search here.</p>
+        </div>
+
+        <div class="categories">
+
+          <div class="category" onclick="chooseCategory('Products')">
+            <div class="category-icon">🛍️</div>
+            <h3>Products</h3>
+            <p>Buy & sell products</p>
+          </div>
+
+          <div class="category" onclick="chooseCategory('Services')">
+            <div class="category-icon">🛠️</div>
+            <h3>Services</h3>
+            <p>Find skilled providers</p>
+          </div>
+
+          <div class="category" onclick="chooseCategory('Property')">
+            <div class="category-icon">🏠</div>
+            <h3>Property</h3>
+            <p>Homes & commercial</p>
+          </div>
+
+          <div class="category" onclick="chooseCategory('Vehicles')">
+            <div class="category-icon">🚗</div>
+            <h3>Vehicles</h3>
+            <p>Cars & transportation</p>
+          </div>
+
+          <div class="category" onclick="chooseCategory('Jobs')">
+            <div class="category-icon">💼</div>
+            <h3>Jobs</h3>
+            <p>Jobs & opportunities</p>
+          </div>
+
+          <div class="category" onclick="chooseCategory('Remote Work')">
+            <div class="category-icon">💻</div>
+            <h3>Remote Work</h3>
+            <p>Work from anywhere</p>
+          </div>
+
+          <div class="category" onclick="chooseCategory('Clothing')">
+            <div class="category-icon">👕</div>
+            <h3>Clothing</h3>
+            <p>Fashion & apparel</p>
+          </div>
+
+          <div class="category" onclick="chooseCategory('Electronics')">
+            <div class="category-icon">📱</div>
+            <h3>Electronics</h3>
+            <p>Tech & devices</p>
+          </div>
+
+          <div class="category" onclick="chooseCategory('Travel')">
+            <div class="category-icon">✈️</div>
+            <h3>Travel</h3>
+            <p>Travel-related needs</p>
+          </div>
+
+          <div class="category" onclick="chooseCategory('Other')">
+            <div class="category-icon">🔎</div>
+            <h3>Other Needs</h3>
+            <p>Tell us what you need</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- HOW IT WORKS -->
+
+    <section id="how-it-works">
+
+      <div class="container">
+
+        <div class="section-title">
+          <h2>How NeedFinder Works</h2>
+          <p>Simple for customers. Useful for providers.</p>
+        </div>
+
+        <div class="steps">
+
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Describe your need</h3>
+            <p>
+              Tell us what product, service, property, job or
+              other requirement you are looking for.
+            </p>
+          </div>
+
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Choose your location</h3>
+            <p>
+              Select your country and city so relevant providers
+              can be found near your requirement.
+            </p>
+          </div>
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <h3>Connect with providers</h3>
+            <p>
+              Review suitable offers and contact the providers
+              that match your requirement.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- POST NEED -->
+
+    <section class="requirement-section" id="post-need">
+
+      <div class="container requirement-wrapper">
+
+        <div class="requirement-copy">
+
+          <h2>
+            Can't find what you need?
+          </h2>
+
+          <p>
+            Post your requirement. Providers can respond with
+            suitable products, services or offers.
+          </p>
+
+          <button class="btn btn-primary" onclick="focusRequirement()">
+            Post Requirement
+          </button>
+
+        </div>
+
+
+        <div class="requirement-form" id="requirementForm">
+
+          <h2 style="margin-bottom: 20px;">
+            Post a Requirement
+          </h2>
+
+          <form onsubmit="submitRequirement(event)">
+
+            <div class="form-group">
+              <label for="needTitle">What do you need?</label>
+
+              <input
+                id="needTitle"
+                type="text"
+                placeholder="Example: Used Toyota Corolla"
+                required
+              >
+            </div>
+
+
+            <div class="form-group">
+              <label for="needCategory">Category</label>
+
+              <select id="needCategory" required>
+                <option value="">Select category</option>
+                <option>Products</option>
+                <option>Services</option>
+                <option>Property</option>
+                <option>Vehicles</option>
+                <option>Jobs</option>
+                <option>Remote Work</option>
+                <option>Clothing</option>
+                <option>Electronics</option>
+                <option>Travel</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+
+            <div class="form-group">
+              <label for="needLocation">Country / City</label>
+
+              <input
+                id="needLocation"
+                type="text"
+                placeholder="Example: Mumbai, India"
+                required
+              >
+            </div>
+
+
+            <div class="form-group">
+              <label for="needDetails">Requirement details</label>
+
+              <textarea
+                id="needDetails"
+                placeholder="Describe your requirement..."
+                required
+              ></textarea>
+            </div>
+
+
+            <button
+              type="submit"
+              class="btn btn-primary"
+              style="width: 100%;"
+            >
+              Submit Requirement
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- PROVIDERS -->
+
+    <section id="provider">
+
+      <div class="container">
+
+        <div class="section-title">
+
+          <h2>Are you a Provider?</h2>
+
+          <p>
+            List your products or services and connect with customers
+            looking for what you offer.
+          </p>
+
+        </div>
+
+        <div style="text-align:center;">
+
+          <button
+            class="btn btn-primary"
+            onclick="showMessage('Provider registration will be connected to the backend in the next step.')"
+          >
+            Become a Provider
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="container footer-content">
+
+      <a href="#" class="logo">
+        NeedFinder<span>Global</span>
+      </a>
+
+      <p>
+        © 2026 NeedFinder Global. Marketplace foundation.
+      </p>
+
+    </div>
+
+  </footer>
+
+
+  <!-- BASIC JAVASCRIPT -->
+
+  <script>
+
+    function showMessage(message) {
+      alert(message);
+    }
+
+
+    function scrollToNeed() {
+      document
+        .getElementById("post-need")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+    }
+
+
+    function focusRequirement() {
+      document
+        .getElementById("needTitle")
+        .focus();
+    }
+
+
+    function chooseCategory(category) {
+
+      document
+        .getElementById("searchInput")
+        .value = category;
+
+      document
+        .querySelector(".hero")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+
+
+    function searchNeed() {
+
+      const search =
+        document
+          .getElementById("searchInput")
+          .value
+          .trim();
+
+      const country =
+        document
+          .getElementById("countrySelect")
+          .value;
+
+      if (!search) {
+        alert("Please enter what you are looking for.");
+        return;
+      }
+
+      let message =
+        "Searching for: " + search;
+
+      if (country) {
+        message += "\nCountry: " + country;
+      }
+
+      alert(
+        message +
+        "\n\nReal marketplace search will be connected to Supabase in the next step."
+      );
+
+    }
+
+
+    function submitRequirement(event) {
+
+      event.preventDefault();
+
+      const title =
+        document
+          .getElementById("needTitle")
+          .value;
+
+      const category =
+        document
+          .getElementById("needCategory")
+          .value;
+
+      const location =
+        document
+          .getElementById("needLocation")
+          .value;
+
+      alert(
+        "Requirement captured successfully!\n\n" +
+        "Need: " + title + "\n" +
+        "Category: " + category + "\n" +
+        "Location: " + location +
+        "\n\nDatabase connection will be added next."
+      );
+
+      event.target.reset();
+    }
+
+  </script>
+
+</body>
+</html>
