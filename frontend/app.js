@@ -1,6 +1,9 @@
+```javascript
 // ==========================================
 // NeedFinder Global - Application Logic
 // ==========================================
+
+let currentUser = null;
 
 document.addEventListener("DOMContentLoaded", () => {
   setupApplication();
@@ -11,6 +14,343 @@ function setupApplication() {
   setupRequirementForm();
   setupCategoryButtons();
   setupNavigation();
+  setupAuth();
+  initializeAuth();
+}
+
+
+// ==========================================
+// AUTHENTICATION
+// ==========================================
+
+function setupAuth() {
+
+  const signUpButton =
+    document.getElementById("signUpButton");
+
+  const loginButton =
+    document.getElementById("loginButton");
+
+  const logoutButton =
+    document.getElementById("logoutButton");
+
+  if (signUpButton) {
+    signUpButton.addEventListener(
+      "click",
+      signUpUser
+    );
+  }
+
+  if (loginButton) {
+    loginButton.addEventListener(
+      "click",
+      loginUser
+    );
+  }
+
+  if (logoutButton) {
+    logoutButton.addEventListener(
+      "click",
+      logoutUser
+    );
+  }
+}
+
+
+async function initializeAuth() {
+
+  try {
+
+    const { data, error } =
+      await supabaseClient.auth.getSession();
+
+    if (error) {
+      throw error;
+    }
+
+    currentUser =
+      data.session?.user || null;
+
+    updateAuthUI();
+
+    supabaseClient.auth.onAuthStateChange(
+      (_event, session) => {
+
+        currentUser =
+          session?.user || null;
+
+        updateAuthUI();
+
+      }
+    );
+
+  } catch (error) {
+
+    console.error(
+      "Authentication initialization error:",
+      error
+    );
+
+  }
+}
+
+
+// ==========================================
+// SIGN UP
+// ==========================================
+
+async function signUpUser() {
+
+  const email =
+    prompt("Enter your email address:");
+
+  if (!email) {
+    return;
+  }
+
+  const password =
+    prompt(
+      "Create a password (minimum 6 characters):"
+    );
+
+  if (!password) {
+    return;
+  }
+
+  if (password.length < 6) {
+
+    alert(
+      "Password must contain at least 6 characters."
+    );
+
+    return;
+  }
+
+  try {
+
+    const { data, error } =
+      await supabaseClient.auth.signUp({
+        email: email.trim(),
+        password: password
+      });
+
+    if (error) {
+      throw error;
+    }
+
+    currentUser =
+      data.user || null;
+
+    alert(
+      "✅ Account created successfully!\n\n" +
+      "Email: " +
+      email.trim()
+    );
+
+    updateAuthUI();
+
+  } catch (error) {
+
+    console.error(
+      "Sign up error:",
+      error
+    );
+
+    alert(
+      "❌ Sign Up failed:\n\n" +
+      error.message
+    );
+
+  }
+}
+
+
+// ==========================================
+// LOGIN
+// ==========================================
+
+async function loginUser() {
+
+  const email =
+    prompt("Enter your email address:");
+
+  if (!email) {
+    return;
+  }
+
+  const password =
+    prompt("Enter your password:");
+
+  if (!password) {
+    return;
+  }
+
+  try {
+
+    const { data, error } =
+      await supabaseClient.auth.signInWithPassword({
+        email: email.trim(),
+        password: password
+      });
+
+    if (error) {
+      throw error;
+    }
+
+    currentUser =
+      data.user || null;
+
+    alert(
+      "✅ Login successful!"
+    );
+
+    updateAuthUI();
+
+  } catch (error) {
+
+    console.error(
+      "Login error:",
+      error
+    );
+
+    alert(
+      "❌ Login failed:\n\n" +
+      error.message
+    );
+
+  }
+}
+
+
+// ==========================================
+// LOGOUT
+// ==========================================
+
+async function logoutUser() {
+
+  try {
+
+    const { error } =
+      await supabaseClient.auth.signOut();
+
+    if (error) {
+      throw error;
+    }
+
+    currentUser = null;
+
+    alert(
+      "✅ Logged out successfully."
+    );
+
+    updateAuthUI();
+
+  } catch (error) {
+
+    console.error(
+      "Logout error:",
+      error
+    );
+
+    alert(
+      "❌ Logout failed:\n\n" +
+      error.message
+    );
+
+  }
+}
+
+
+// ==========================================
+// UPDATE AUTH UI
+// ==========================================
+
+function updateAuthUI() {
+
+  const authArea =
+    document.getElementById("authArea");
+
+  if (!authArea) {
+    return;
+  }
+
+  if (currentUser) {
+
+    authArea.innerHTML = `
+      <div class="auth-user">
+        <span>
+          👤 ${escapeHTML(
+            currentUser.email || ""
+          )}
+        </span>
+
+        <button
+          type="button"
+          id="logoutButton">
+          Logout
+        </button>
+      </div>
+    `;
+
+    const logoutButton =
+      document.getElementById(
+        "logoutButton"
+      );
+
+    if (logoutButton) {
+
+      logoutButton.addEventListener(
+        "click",
+        logoutUser
+      );
+
+    }
+
+  } else {
+
+    authArea.innerHTML = `
+      <button
+        type="button"
+        id="loginButton">
+        Login
+      </button>
+
+      <button
+        type="button"
+        id="signUpButton">
+        Sign Up
+      </button>
+    `;
+
+    const loginButton =
+      document.getElementById(
+        "loginButton"
+      );
+
+    const signUpButton =
+      document.getElementById(
+        "signUpButton"
+      );
+
+    if (loginButton) {
+
+      loginButton.addEventListener(
+        "click",
+        loginUser
+      );
+
+    }
+
+    if (signUpButton) {
+
+      signUpButton.addEventListener(
+        "click",
+        signUpUser
+      );
+
+    }
+
+  }
 }
 
 
@@ -19,82 +359,135 @@ function setupApplication() {
 // ==========================================
 
 function setupSearch() {
-  const searchButton = document.getElementById("searchButton");
 
-  if (!searchButton) return;
+  const searchButton =
+    document.getElementById(
+      "searchButton"
+    );
 
-  searchButton.addEventListener("click", searchRequirements);
+  if (!searchButton) {
+    return;
+  }
+
+  searchButton.addEventListener(
+    "click",
+    searchRequirements
+  );
 }
 
+
 async function searchRequirements() {
+
   const searchInput =
-    document.getElementById("searchInput");
+    document.getElementById(
+      "searchInput"
+    );
 
   const countrySelect =
-    document.getElementById("countrySelect");
+    document.getElementById(
+      "countrySelect"
+    );
 
   const results =
-    document.getElementById("searchResults");
+    document.getElementById(
+      "searchResults"
+    );
 
   const search =
-    searchInput ? searchInput.value.trim() : "";
+    searchInput
+      ? searchInput.value.trim()
+      : "";
 
   const country =
-    countrySelect ? countrySelect.value : "";
+    countrySelect
+      ? countrySelect.value
+      : "";
 
   if (!search && !country) {
-    alert("Please enter a need or select a country.");
+
+    alert(
+      "Please enter a need or select a country."
+    );
+
     return;
   }
 
   if (results) {
+
     results.innerHTML =
       "<p>Searching...</p>";
+
   }
 
   try {
-    let query = supabaseClient
-      .from("requirements")
-      .select("*")
-      .eq("status", "open")
-      .order("created_at", {
-        ascending: false
-      });
+
+    let query =
+      supabaseClient
+        .from("requirements")
+        .select("*")
+        .eq("status", "open")
+        .order(
+          "created_at",
+          {
+            ascending: false
+          }
+        );
 
     if (search) {
-      query = query.or(
-        `title.ilike.%${escapeQuery(search)}%,details.ilike.%${escapeQuery(search)}%`
-      );
+
+      const safeSearch =
+        escapeQuery(search);
+
+      query =
+        query.or(
+          `title.ilike.%${safeSearch}%,details.ilike.%${safeSearch}%`
+        );
+
     }
 
     if (country) {
-      query = query.ilike(
-        "location",
-        `%${escapeQuery(country)}%`
-      );
+
+      const safeCountry =
+        escapeQuery(country);
+
+      query =
+        query.ilike(
+          "location",
+          `%${safeCountry}%`
+        );
+
     }
 
-    const { data, error } = await query;
+    const { data, error } =
+      await query;
 
     if (error) {
       throw error;
     }
 
-    displaySearchResults(data || []);
+    displaySearchResults(
+      data || []
+    );
 
   } catch (error) {
 
-    console.error(error);
+    console.error(
+      "Search error:",
+      error
+    );
 
     if (results) {
+
       results.innerHTML =
         "<p>Search failed. Please try again.</p>";
+
     }
 
     alert(
       "Search error:\n\n" +
       error.message
     );
+
   }
 }
 
@@ -103,67 +496,92 @@ async function searchRequirements() {
 // DISPLAY SEARCH RESULTS
 // ==========================================
 
-function displaySearchResults(requirements) {
+function displaySearchResults(
+  requirements
+) {
 
   const results =
-    document.getElementById("searchResults");
+    document.getElementById(
+      "searchResults"
+    );
 
-  if (!results) return;
+  if (!results) {
+    return;
+  }
 
   if (!requirements.length) {
 
     results.innerHTML = `
       <div class="no-results">
-        <h3>No requirements found</h3>
+
+        <h3>
+          No requirements found
+        </h3>
+
         <p>
-          Try another search or post your own requirement.
+          Try another search or post
+          your own requirement.
         </p>
+
       </div>
     `;
 
     return;
   }
 
-  results.innerHTML = requirements
-    .map(requirement => {
+  results.innerHTML =
+    requirements
+      .map(requirement => {
 
-      return `
-        <div class="requirement-card">
+        return `
+          <div class="requirement-card">
 
-          <div class="requirement-card-top">
+            <div class="requirement-card-top">
 
-            <span class="requirement-category">
-              ${escapeHTML(requirement.category)}
-            </span>
+              <span class="requirement-category">
+                ${escapeHTML(
+                  requirement.category
+                )}
+              </span>
 
-            <span class="requirement-status">
-              ${escapeHTML(requirement.status)}
-            </span>
+              <span class="requirement-status">
+                ${escapeHTML(
+                  requirement.status
+                )}
+              </span>
+
+            </div>
+
+            <h3>
+              ${escapeHTML(
+                requirement.title
+              )}
+            </h3>
+
+            <p>
+              ${escapeHTML(
+                requirement.details
+              )}
+            </p>
+
+            <div class="requirement-location">
+              📍 ${escapeHTML(
+                requirement.location
+              )}
+            </div>
+
+            <small>
+              Posted:
+              ${formatDate(
+                requirement.created_at
+              )}
+            </small>
 
           </div>
+        `;
 
-          <h3>
-            ${escapeHTML(requirement.title)}
-          </h3>
-
-          <p>
-            ${escapeHTML(requirement.details)}
-          </p>
-
-          <div class="requirement-location">
-            📍 ${escapeHTML(requirement.location)}
-          </div>
-
-          <small>
-            Posted:
-            ${formatDate(requirement.created_at)}
-          </small>
-
-        </div>
-      `;
-
-    })
-    .join("");
+      })
+      .join("");
 }
 
 
@@ -174,9 +592,13 @@ function displaySearchResults(requirements) {
 function setupRequirementForm() {
 
   const form =
-    document.getElementById("requirementForm");
+    document.getElementById(
+      "requirementForm"
+    );
 
-  if (!form) return;
+  if (!form) {
+    return;
+  }
 
   form.addEventListener(
     "submit",
@@ -189,30 +611,68 @@ async function submitRequirement(event) {
 
   event.preventDefault();
 
+  // Login required
+  if (!currentUser) {
+
+    alert(
+      "🔐 Please Login or Sign Up before posting a requirement."
+    );
+
+    return;
+  }
+
+  const titleElement =
+    document.getElementById(
+      "needTitle"
+    );
+
+  const categoryElement =
+    document.getElementById(
+      "needCategory"
+    );
+
+  const locationElement =
+    document.getElementById(
+      "needLocation"
+    );
+
+  const detailsElement =
+    document.getElementById(
+      "needDetails"
+    );
+
+  if (
+    !titleElement ||
+    !categoryElement ||
+    !locationElement ||
+    !detailsElement
+  ) {
+
+    alert(
+      "Requirement form fields are missing."
+    );
+
+    return;
+  }
+
   const title =
-    document
-      .getElementById("needTitle")
-      .value
-      .trim();
+    titleElement.value.trim();
 
   const category =
-    document
-      .getElementById("needCategory")
-      .value;
+    categoryElement.value;
 
   const location =
-    document
-      .getElementById("needLocation")
-      .value
-      .trim();
+    locationElement.value.trim();
 
   const details =
-    document
-      .getElementById("needDetails")
-      .value
-      .trim();
+    detailsElement.value.trim();
 
-  if (!title || !category || !location || !details) {
+  if (
+    !title ||
+    !category ||
+    !location ||
+    !details
+  ) {
 
     alert(
       "Please complete all fields."
@@ -227,9 +687,13 @@ async function submitRequirement(event) {
     );
 
   if (submitButton) {
-    submitButton.disabled = true;
+
+    submitButton.disabled =
+      true;
+
     submitButton.textContent =
       "Submitting...";
+
   }
 
   try {
@@ -238,11 +702,25 @@ async function submitRequirement(event) {
       await supabaseClient
         .from("requirements")
         .insert({
-          title: title,
-          category: category,
-          location: location,
-          details: details,
-          status: "open"
+
+          user_id:
+            currentUser.id,
+
+          title:
+            title,
+
+          category:
+            category,
+
+          location:
+            location,
+
+          details:
+            details,
+
+          status:
+            "open"
+
         })
         .select()
         .single();
@@ -259,13 +737,15 @@ async function submitRequirement(event) {
 
     event.target.reset();
 
-    // Refresh search results if visible
-    if (
+    const searchResults =
       document.getElementById(
         "searchResults"
-      )
-    ) {
+      );
+
+    if (searchResults) {
+
       searchRequirements();
+
     }
 
   } catch (error) {
@@ -283,10 +763,15 @@ async function submitRequirement(event) {
   } finally {
 
     if (submitButton) {
-      submitButton.disabled = false;
+
+      submitButton.disabled =
+        false;
+
       submitButton.textContent =
         "Submit Requirement";
+
     }
+
   }
 }
 
@@ -302,44 +787,50 @@ function setupCategoryButtons() {
       ".category"
     );
 
-  categories.forEach(category => {
+  categories.forEach(
+    category => {
 
-    category.addEventListener(
-      "click",
-      () => {
+      category.addEventListener(
+        "click",
+        () => {
 
-        const categoryName =
-          category.dataset.category ||
-          category
-            .querySelector("h3")
-            ?.textContent ||
-          "";
+          const categoryName =
+            category.dataset.category ||
+            category
+              .querySelector("h3")
+              ?.textContent ||
+            "";
 
-        const searchInput =
-          document.getElementById(
-            "searchInput"
-          );
+          const searchInput =
+            document.getElementById(
+              "searchInput"
+            );
 
-        if (searchInput) {
-          searchInput.value =
-            categoryName;
+          if (searchInput) {
+
+            searchInput.value =
+              categoryName;
+
+          }
+
+          const hero =
+            document.querySelector(
+              ".hero"
+            );
+
+          if (hero) {
+
+            hero.scrollIntoView({
+              behavior: "smooth"
+            });
+
+          }
+
         }
+      );
 
-        const hero =
-          document.querySelector(
-            ".hero"
-          );
-
-        if (hero) {
-          hero.scrollIntoView({
-            behavior: "smooth"
-          });
-        }
-
-      }
-    );
-
-  });
+    }
+  );
 }
 
 
@@ -354,27 +845,31 @@ function setupNavigation() {
       "[data-action='post-need']"
     );
 
-  postNeedButtons.forEach(button => {
+  postNeedButtons.forEach(
+    button => {
 
-    button.addEventListener(
-      "click",
-      () => {
+      button.addEventListener(
+        "click",
+        () => {
 
-        const section =
-          document.getElementById(
-            "post-need"
-          );
+          const section =
+            document.getElementById(
+              "post-need"
+            );
 
-        if (section) {
-          section.scrollIntoView({
-            behavior: "smooth"
-          });
+          if (section) {
+
+            section.scrollIntoView({
+              behavior: "smooth"
+            });
+
+          }
+
         }
+      );
 
-      }
-    );
-
-  });
+    }
+  );
 }
 
 
@@ -384,34 +879,80 @@ function setupNavigation() {
 
 function escapeHTML(value) {
 
-  if (value === null ||
-      value === undefined) {
+  if (
+    value === null ||
+    value === undefined
+  ) {
+
     return "";
+
   }
 
   return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 }
 
 
 function escapeQuery(value) {
 
   return String(value)
-    .replaceAll("%", "")
-    .replaceAll(",", "")
-    .replaceAll("(", "")
-    .replaceAll(")", "")
-    .replaceAll("*", "");
+
+    .replaceAll(
+      "%",
+      ""
+    )
+
+    .replaceAll(
+      ",",
+      ""
+    )
+
+    .replaceAll(
+      "(",
+      ""
+    )
+
+    .replaceAll(
+      ")",
+      ""
+    )
+
+    .replaceAll(
+      "*",
+      ""
+    );
 }
 
 
 function formatDate(date) {
 
-  if (!date) return "";
+  if (!date) {
+    return "";
+  }
 
   try {
 
@@ -426,6 +967,9 @@ function formatDate(date) {
       );
 
   } catch {
+
     return "";
+
   }
 }
+```
