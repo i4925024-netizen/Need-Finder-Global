@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -6,16 +7,21 @@
 
   <title>NeedFinder Global</title>
 
-  <meta
-    name="description"
-    content="NeedFinder Global connects customers with products, services, property, jobs and other legal needs worldwide."
-  >
+<meta
+name="description"
+content="NeedFinder Global connects customers with products, services, property, jobs and other legal needs worldwide."
+
+>
 
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
@@ -35,6 +41,10 @@
     select,
     textarea {
       font: inherit;
+    }
+
+    button {
+      cursor: pointer;
     }
 
     .container {
@@ -87,7 +97,19 @@
       gap: 10px;
     }
 
-    .user-email {
+    .auth-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .auth-user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .auth-user span {
       font-size: 13px;
       color: #596579;
       max-width: 180px;
@@ -100,9 +122,13 @@
       border: 0;
       border-radius: 10px;
       padding: 11px 18px;
-      cursor: pointer;
       font-weight: 700;
       transition: 0.2s;
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
 
     .btn-primary {
@@ -126,6 +152,10 @@
     .btn-danger {
       background: #fee2e2;
       color: #b91c1c;
+    }
+
+    .btn-danger:hover {
+      background: #fecaca;
     }
 
     .hero {
@@ -189,6 +219,16 @@
       padding: 14px;
       outline: none;
       background: white;
+      width: 100%;
+    }
+
+    .search-box input:focus,
+    .search-box select:focus,
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #1457d9;
+      box-shadow: 0 0 0 3px rgba(20, 87, 217, 0.1);
     }
 
     section {
@@ -329,6 +369,7 @@
       border-radius: 9px;
       padding: 12px;
       outline: none;
+      background: #fff;
     }
 
     .form-group textarea {
@@ -370,7 +411,6 @@
       background: white;
       padding: 10px;
       border-radius: 9px;
-      cursor: pointer;
       font-weight: 700;
     }
 
@@ -398,6 +438,76 @@
       display: block;
       background: #fee2e2;
       color: #991b1b;
+    }
+
+    .search-results-section {
+      background: #fff;
+    }
+
+    #searchResults {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .requirement-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 15px;
+      box-shadow: 0 5px 20px rgba(25, 45, 90, 0.05);
+    }
+
+    .requirement-card-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .requirement-category,
+    .requirement-status {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 9px;
+      border-radius: 20px;
+      background: #eef3ff;
+      color: #1457d9;
+    }
+
+    .requirement-status {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .requirement-card h3 {
+      margin-bottom: 8px;
+    }
+
+    .requirement-card p {
+      color: #596579;
+      margin-bottom: 10px;
+    }
+
+    .requirement-location {
+      color: #596579;
+      margin-bottom: 8px;
+    }
+
+    .requirement-card small {
+      color: #8a93a3;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 35px;
+      border: 1px dashed #d9dee8;
+      border-radius: 15px;
+    }
+
+    .no-results p {
+      color: #6b7280;
+      margin-top: 8px;
     }
 
     footer {
@@ -457,16 +567,21 @@
         grid-template-columns: 1fr;
       }
 
+      .nav-actions > .btn-primary {
+        display: none;
+      }
+
+      .auth-user span {
+        display: none;
+      }
+
       .footer-content {
         flex-direction: column;
         text-align: center;
       }
-
-      .user-email {
-        display: none;
-      }
     }
   </style>
+
 </head>
 
 <body>
@@ -474,673 +589,565 @@
 <header>
   <div class="container nav">
 
-    <a href="#" class="logo">
-      NeedFinder<span>Global</span>
-    </a>
+```
+<a href="#" class="logo">
+  NeedFinder<span>Global</span>
+</a>
 
-    <nav>
-      <a href="#categories">Categories</a>
-      <a href="#how-it-works">How it works</a>
-      <a href="#post-need">Post a Need</a>
-      <a href="#provider">For Providers</a>
-    </nav>
+<nav>
+  <a href="#categories">Categories</a>
+  <a href="#how-it-works">How it works</a>
+  <a href="#post-need">Post a Need</a>
+  <a href="#provider">For Providers</a>
+</nav>
 
-    <div class="nav-actions">
+<div class="nav-actions">
 
-      <span id="userEmail" class="user-email hidden"></span>
+  <div id="authArea" class="auth-area">
+    <button
+      id="loginButton"
+      type="button"
+      class="btn btn-light"
+    >
+      Login
+    </button>
 
-      <button
-        id="loginButton"
-        class="btn btn-light"
-        onclick="openAuth('login')"
-      >
-        Login
-      </button>
+    <button
+      id="signUpButton"
+      type="button"
+      class="btn btn-primary"
+    >
+      Sign Up
+    </button>
+  </div>
 
-      <button
-        id="signupButton"
-        class="btn btn-primary"
-        onclick="openAuth('signup')"
-      >
-        Sign Up
-      </button>
+  <button
+    type="button"
+    class="btn btn-primary"
+    data-action="post-need"
+  >
+    Post a Need
+  </button>
 
-      <button
-        id="logoutButton"
-        class="btn btn-danger hidden"
-        onclick="logoutUser()"
-      >
-        Logout
-      </button>
-
-      <button
-        class="btn btn-primary"
-        onclick="scrollToNeed()"
-      >
-        Post a Need
-      </button>
-
-    </div>
+</div>
+```
 
   </div>
 </header>
-
 
 <main>
 
   <section class="hero">
 
-    <div class="container hero-content">
+```
+<div class="container hero-content">
 
-      <div class="badge">
-        🌍 Global marketplace for real-world needs
-      </div>
+  <div class="badge">
+    🌍 Global marketplace for real-world needs
+  </div>
 
-      <h1>
-        Tell us what you <span>need.</span><br>
-        Find who can provide it.
-      </h1>
+  <h1>
+    Tell us what you <span>need.</span><br>
+    Find who can provide it.
+  </h1>
 
-      <p>
-        Search products, services, property, vehicles, jobs,
-        remote work and other legal requirements anywhere in the world.
-      </p>
+  <p>
+    Search products, services, property, vehicles, jobs,
+    remote work and other legal requirements anywhere in the world.
+  </p>
 
-      <div class="search-box">
+  <div class="search-box">
 
-        <input
-          id="searchInput"
-          type="text"
-          placeholder="What are you looking for?"
-        >
+    <input
+      id="searchInput"
+      type="text"
+      placeholder="What are you looking for?"
+    >
 
-        <select id="countrySelect">
-          <option value="">Select country</option>
-          <option>India</option>
-          <option>United States</option>
-          <option>United Kingdom</option>
-          <option>Canada</option>
-          <option>Australia</option>
-          <option>United Arab Emirates</option>
-          <option>Germany</option>
-          <option>Singapore</option>
-        </select>
+    <select id="countrySelect">
+      <option value="">Select country</option>
+      <option>Pakistan</option>
+      <option>India</option>
+      <option>United States</option>
+      <option>United Kingdom</option>
+      <option>Canada</option>
+      <option>Australia</option>
+      <option>United Arab Emirates</option>
+      <option>Germany</option>
+      <option>Singapore</option>
+      <option>Saudi Arabia</option>
+      <option>Qatar</option>
+      <option>Turkey</option>
+      <option>Malaysia</option>
+      <option>Other</option>
+    </select>
 
-        <button class="btn btn-primary" onclick="searchNeed()">
-          Search
-        </button>
+    <button
+      id="searchButton"
+      type="button"
+      class="btn btn-primary"
+    >
+      Search
+    </button>
 
-      </div>
+  </div>
 
-    </div>
+</div>
+```
 
   </section>
 
+  <section id="search-section" class="search-results-section">
+
+```
+<div class="container">
+
+  <div class="section-title">
+    <h2>Search Results</h2>
+    <p>Find open requirements from around the world.</p>
+  </div>
+
+  <div id="searchResults">
+    <div class="no-results">
+      <h3>Search for a requirement</h3>
+      <p>Enter a need or select a country above.</p>
+    </div>
+  </div>
+
+</div>
+```
+
+  </section>
 
   <section id="categories">
 
-    <div class="container">
+```
+<div class="container">
 
-      <div class="section-title">
-        <h2>Explore Categories</h2>
-        <p>Whatever you need, start your search here.</p>
-      </div>
+  <div class="section-title">
+    <h2>Explore Categories</h2>
+    <p>Whatever you need, start your search here.</p>
+  </div>
 
-      <div class="categories">
+  <div class="categories">
 
-        <div class="category" onclick="chooseCategory('Products')">
-          <div class="category-icon">🛍️</div>
-          <h3>Products</h3>
-          <p>Buy & sell products</p>
-        </div>
-
-        <div class="category" onclick="chooseCategory('Services')">
-          <div class="category-icon">🛠️</div>
-          <h3>Services</h3>
-          <p>Find skilled providers</p>
-        </div>
-
-        <div class="category" onclick="chooseCategory('Property')">
-          <div class="category-icon">🏠</div>
-          <h3>Property</h3>
-          <p>Homes & commercial</p>
-        </div>
-
-        <div class="category" onclick="chooseCategory('Vehicles')">
-          <div class="category-icon">🚗</div>
-          <h3>Vehicles</h3>
-          <p>Cars & transportation</p>
-        </div>
-
-        <div class="category" onclick="chooseCategory('Jobs')">
-          <div class="category-icon">💼</div>
-          <h3>Jobs</h3>
-          <p>Jobs & opportunities</p>
-        </div>
-
-        <div class="category" onclick="chooseCategory('Remote Work')">
-          <div class="category-icon">💻</div>
-          <h3>Remote Work</h3>
-          <p>Work from anywhere</p>
-        </div>
-
-        <div class="category" onclick="chooseCategory('Clothing')">
-          <div class="category-icon">👕</div>
-          <h3>Clothing</h3>
-          <p>Fashion & apparel</p>
-        </div>
-
-        <div class="category" onclick="chooseCategory('Electronics')">
-          <div class="category-icon">📱</div>
-          <h3>Electronics</h3>
-          <p>Tech & devices</p>
-        </div>
-
-        <div class="category" onclick="chooseCategory('Travel')">
-          <div class="category-icon">✈️</div>
-          <h3>Travel</h3>
-          <p>Travel-related needs</p>
-        </div>
-
-        <div class="category" onclick="chooseCategory('Other')">
-          <div class="category-icon">🔎</div>
-          <h3>Other Needs</h3>
-          <p>Tell us what you need</p>
-        </div>
-
-      </div>
-
+    <div class="category" data-category="Products">
+      <div class="category-icon">🛍️</div>
+      <h3>Products</h3>
+      <p>Buy & sell products</p>
     </div>
 
-  </section>
+    <div class="category" data-category="Services">
+      <div class="category-icon">🛠️</div>
+      <h3>Services</h3>
+      <p>Find skilled providers</p>
+    </div>
 
+    <div class="category" data-category="Property">
+      <div class="category-icon">🏠</div>
+      <h3>Property</h3>
+      <p>Homes & commercial</p>
+    </div>
+
+    <div class="category" data-category="Vehicles">
+      <div class="category-icon">🚗</div>
+      <h3>Vehicles</h3>
+      <p>Cars & transportation</p>
+    </div>
+
+    <div class="category" data-category="Jobs">
+      <div class="category-icon">💼</div>
+      <h3>Jobs</h3>
+      <p>Jobs & opportunities</p>
+    </div>
+
+    <div class="category" data-category="Remote Work">
+      <div class="category-icon">💻</div>
+      <h3>Remote Work</h3>
+      <p>Work from anywhere</p>
+    </div>
+
+    <div class="category" data-category="Clothing">
+      <div class="category-icon">👕</div>
+      <h3>Clothing</h3>
+      <p>Fashion & apparel</p>
+    </div>
+
+    <div class="category" data-category="Electronics">
+      <div class="category-icon">📱</div>
+      <h3>Electronics</h3>
+      <p>Tech & devices</p>
+    </div>
+
+    <div class="category" data-category="Travel">
+      <div class="category-icon">✈️</div>
+      <h3>Travel</h3>
+      <p>Travel-related needs</p>
+    </div>
+
+    <div class="category" data-category="Other">
+      <div class="category-icon">🔎</div>
+      <h3>Other Needs</h3>
+      <p>Tell us what you need</p>
+    </div>
+
+  </div>
+
+</div>
+```
+
+  </section>
 
   <section id="how-it-works">
 
-    <div class="container">
+```
+<div class="container">
 
-      <div class="section-title">
-        <h2>How NeedFinder Works</h2>
-        <p>Simple for customers. Useful for providers.</p>
-      </div>
+  <div class="section-title">
+    <h2>How NeedFinder Works</h2>
+    <p>Simple for customers. Useful for providers.</p>
+  </div>
 
-      <div class="steps">
+  <div class="steps">
 
-        <div class="step">
-          <div class="step-number">1</div>
-          <h3>Describe your need</h3>
-          <p>
-            Tell us what product, service, property, job or
-            other requirement you are looking for.
-          </p>
-        </div>
-
-        <div class="step">
-          <div class="step-number">2</div>
-          <h3>Choose your location</h3>
-          <p>
-            Select your country and city so relevant providers
-            can be found near your requirement.
-          </p>
-        </div>
-
-        <div class="step">
-          <div class="step-number">3</div>
-          <h3>Connect with providers</h3>
-          <p>
-            Review suitable offers and contact the providers
-            that match your requirement.
-          </p>
-        </div>
-
-      </div>
-
+    <div class="step">
+      <div class="step-number">1</div>
+      <h3>Describe your need</h3>
+      <p>
+        Tell us what product, service, property, job or
+        other requirement you are looking for.
+      </p>
     </div>
 
-  </section>
+    <div class="step">
+      <div class="step-number">2</div>
+      <h3>Choose your location</h3>
+      <p>
+        Select your country and city so relevant providers
+        can be found near your requirement.
+      </p>
+    </div>
 
+    <div class="step">
+      <div class="step-number">3</div>
+      <h3>Connect with providers</h3>
+      <p>
+        Review suitable requirements and connect with
+        providers that match your needs.
+      </p>
+    </div>
+
+  </div>
+
+</div>
+```
+
+  </section>
 
   <section class="requirement-section" id="post-need">
 
-    <div class="container requirement-wrapper">
+```
+<div class="container requirement-wrapper">
 
-      <div class="requirement-copy">
+  <div class="requirement-copy">
 
-        <h2>
-          Can't find what you need?
-        </h2>
+    <h2>
+      Can't find what you need?
+    </h2>
 
-        <p>
-          Post your requirement. Providers can respond with
-          suitable products, services or offers.
-        </p>
+    <p>
+      Post your requirement. Providers can find your
+      requirement and respond with suitable offers.
+    </p>
 
-        <button
-          class="btn btn-primary"
-          onclick="focusRequirement()"
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-action="post-need"
+    >
+      Post Requirement
+    </button>
+
+  </div>
+
+
+  <div class="requirement-form">
+
+    <h2 style="margin-bottom:20px;">
+      Post a Requirement
+    </h2>
+
+    <form id="requirementForm">
+
+      <div class="form-group">
+
+        <label for="needTitle">
+          What do you need?
+        </label>
+
+        <input
+          id="needTitle"
+          type="text"
+          placeholder="Example: Used Toyota Corolla"
+          required
         >
-          Post Requirement
-        </button>
 
       </div>
 
 
-      <div class="requirement-form" id="requirementForm">
+      <div class="form-group">
 
-        <h2 style="margin-bottom:20px;">
-          Post a Requirement
-        </h2>
+        <label for="needCategory">
+          Category
+        </label>
 
-        <form onsubmit="submitRequirement(event)">
+        <select id="needCategory" required>
 
-          <div class="form-group">
-            <label for="needTitle">What do you need?</label>
+          <option value="">
+            Select category
+          </option>
 
-            <input
-              id="needTitle"
-              type="text"
-              placeholder="Example: Used Toyota Corolla"
-              required
-            >
-          </div>
+          <option>Products</option>
+          <option>Services</option>
+          <option>Property</option>
+          <option>Vehicles</option>
+          <option>Jobs</option>
+          <option>Remote Work</option>
+          <option>Clothing</option>
+          <option>Electronics</option>
+          <option>Travel</option>
+          <option>Other</option>
 
-
-          <div class="form-group">
-            <label for="needCategory">Category</label>
-
-            <select id="needCategory" required>
-              <option value="">Select category</option>
-              <option>Products</option>
-              <option>Services</option>
-              <option>Property</option>
-              <option>Vehicles</option>
-              <option>Jobs</option>
-              <option>Remote Work</option>
-              <option>Clothing</option>
-              <option>Electronics</option>
-              <option>Travel</option>
-              <option>Other</option>
-            </select>
-          </div>
-
-
-          <div class="form-group">
-            <label for="needLocation">Country / City</label>
-
-            <input
-              id="needLocation"
-              type="text"
-              placeholder="Example: Mumbai, India"
-              required
-            >
-          </div>
-
-
-          <div class="form-group">
-            <label for="needDetails">Requirement details</label>
-
-            <textarea
-              id="needDetails"
-              placeholder="Describe your requirement..."
-              required
-            ></textarea>
-          </div>
-
-
-          <button
-            type="submit"
-            class="btn btn-primary"
-            style="width:100%;"
-          >
-            Submit Requirement
-          </button>
-
-        </form>
+        </select>
 
       </div>
 
-    </div>
+
+      <div class="form-group">
+
+        <label for="needLocation">
+          Country / City
+        </label>
+
+        <input
+          id="needLocation"
+          type="text"
+          placeholder="Example: Islamabad, Pakistan"
+          required
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="needDetails">
+          Requirement details
+        </label>
+
+        <textarea
+          id="needDetails"
+          placeholder="Describe your requirement..."
+          required
+        ></textarea>
+
+      </div>
+
+
+      <button
+        type="submit"
+        class="btn btn-primary"
+        style="width:100%;"
+      >
+        Submit Requirement
+      </button>
+
+    </form>
+
+  </div>
+
+</div>
+```
 
   </section>
-
 
   <section id="provider">
 
-    <div class="container">
+```
+<div class="container">
 
-      <div class="section-title">
+  <div class="section-title">
 
-        <h2>Are you a Provider?</h2>
+    <h2>Are you a Provider?</h2>
 
-        <p>
-          List your products or services and connect with customers
-          looking for what you offer.
-        </p>
+    <p>
+      List your products or services and connect with customers
+      looking for what you offer.
+    </p>
 
-      </div>
+  </div>
 
-      <div style="text-align:center;">
+  <div style="text-align:center;">
 
-        <button
-          class="btn btn-primary"
-          onclick="showMessage('Provider registration will be added next.')"
-        >
-          Become a Provider
-        </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      id="providerButton"
+    >
+      Become a Provider
+    </button>
 
-      </div>
+  </div>
 
-    </div>
+</div>
+```
 
   </section>
 
-
-  <!-- AUTH -->
-
   <section id="authSection" class="auth-section hidden">
 
-    <div class="container">
+```
+<div class="container">
 
-      <div class="auth-card">
+  <div class="auth-card">
 
-        <div class="auth-tabs">
+    <div class="auth-tabs">
 
-          <button
-            id="loginTab"
-            class="auth-tab active"
-            onclick="switchAuthMode('login')"
-          >
-            Login
-          </button>
+      <button
+        type="button"
+        id="loginTab"
+        class="auth-tab active"
+      >
+        Login
+      </button>
 
-          <button
-            id="signupTab"
-            class="auth-tab"
-            onclick="switchAuthMode('signup')"
-          >
-            Sign Up
-          </button>
+      <button
+        type="button"
+        id="signupTab"
+        class="auth-tab"
+      >
+        Sign Up
+      </button>
 
-        </div>
+    </div>
 
-        <h2 id="authTitle">Login</h2>
 
-        <p id="authDescription">
-          Login to your NeedFinder Global account.
-        </p>
+    <h2 id="authTitle">
+      Login
+    </h2>
 
-        <form onsubmit="handleAuth(event)">
+    <p id="authDescription">
+      Login to your NeedFinder Global account.
+    </p>
 
-          <div class="form-group">
-            <label for="authEmail">Email</label>
 
-            <input
-              id="authEmail"
-              type="email"
-              placeholder="you@example.com"
-              required
-            >
-          </div>
+    <form id="authForm">
 
-          <div class="form-group">
-            <label for="authPassword">Password</label>
+      <div class="form-group">
 
-            <input
-              id="authPassword"
-              type="password"
-              placeholder="Minimum 6 characters"
-              minlength="6"
-              required
-            >
-          </div>
+        <label for="authEmail">
+          Email
+        </label>
 
-          <button
-            id="authSubmit"
-            type="submit"
-            class="btn btn-primary"
-            style="width:100%;"
-          >
-            Login
-          </button>
-
-        </form>
-
-        <div id="authMessage" class="auth-message"></div>
+        <input
+          id="authEmail"
+          type="email"
+          placeholder="you@example.com"
+          required
+        >
 
       </div>
 
-    </div>
+
+      <div class="form-group">
+
+        <label for="authPassword">
+          Password
+        </label>
+
+        <input
+          id="authPassword"
+          type="password"
+          placeholder="Minimum 6 characters"
+          minlength="6"
+          required
+        >
+
+      </div>
+
+
+      <button
+        id="authSubmit"
+        type="submit"
+        class="btn btn-primary"
+        style="width:100%;"
+      >
+        Login
+      </button>
+
+    </form>
+
+
+    <div
+      id="authMessage"
+      class="auth-message"
+    ></div>
+
+  </div>
+
+</div>
+```
 
   </section>
 
 </main>
 
-
 <footer>
 
   <div class="container footer-content">
 
-    <a href="#" class="logo">
-      NeedFinder<span>Global</span>
-    </a>
+```
+<a href="#" class="logo">
+  NeedFinder<span>Global</span>
+</a>
 
-    <p>
-      © 2026 NeedFinder Global. Marketplace foundation.
-    </p>
+<p>
+  © 2026 NeedFinder Global. Marketplace foundation.
+</p>
+```
 
   </div>
 
 </footer>
 
-
 <!-- Supabase -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<!-- Supabase configuration -->
+
 <script src="config.js"></script>
 
+<!-- Application -->
+
+<script src="app.js"></script>
 
 <script>
+  /*
+   * Small compatibility layer for the existing HTML.
+   * Main application logic remains inside app.js.
+   */
 
-  let authMode = "login";
+  document.addEventListener("DOMContentLoaded", function () {
 
-
-  function showMessage(message) {
-    alert(message);
-  }
-
-
-  function scrollToNeed() {
-    document
-      .getElementById("post-need")
-      .scrollIntoView({
-        behavior: "smooth"
-      });
-  }
-
-
-  function focusRequirement() {
-    const authUser = getCurrentUser();
-
-    if (!authUser) {
-      alert("Please login or sign up before posting a requirement.");
-      openAuth("login");
-      return;
-    }
-
-    document
-      .getElementById("needTitle")
-      .focus();
-  }
-
-
-  function chooseCategory(category) {
-
-    document
-      .getElementById("searchInput")
-      .value = category;
-
-    document
-      .querySelector(".hero")
-      .scrollIntoView({
-        behavior: "smooth"
-      });
-
-  }
-
-
-  async function searchNeed() {
-
-    const search =
-      document
-        .getElementById("searchInput")
-        .value
-        .trim();
-
-    const country =
-      document
-        .getElementById("countrySelect")
-        .value;
-
-    if (!search) {
-      alert("Please enter what you are looking for.");
-      return;
-    }
-
-    let query = supabaseClient
-      .from("requirements")
-      .select("*")
-      .eq("status", "open")
-      .ilike("title", "%" + search + "%");
-
-    if (country) {
-      query = query.ilike("location", "%" + country + "%");
-    }
-
-    const { data, error } = await query
-      .order("created_at", { ascending: false })
-      .limit(20);
-
-    if (error) {
-      alert("Search error: " + error.message);
-      return;
-    }
-
-    if (!data || data.length === 0) {
-      alert("No matching requirements found yet.");
-      return;
-    }
-
-    let result = "Matching requirements:\\n\\n";
-
-    data.forEach((item, index) => {
-      result +=
-        (index + 1) + ". " +
-        item.title +
-        "\\nCategory: " +
-        item.category +
-        "\\nLocation: " +
-        item.location +
-        "\\n\\n";
-    });
-
-    alert(result);
-  }
-
-
-  async function submitRequirement(event) {
-
-    event.preventDefault();
-
-    const user = getCurrentUser();
-
-    if (!user) {
-      alert("Please login or sign up before submitting a requirement.");
-      openAuth("login");
-      return;
-    }
-
-    const title =
-      document
-        .getElementById("needTitle")
-        .value
-        .trim();
-
-    const category =
-      document
-        .getElementById("needCategory")
-        .value;
-
-    const location =
-      document
-        .getElementById("needLocation")
-        .value
-        .trim();
-
-    const details =
-      document
-        .getElementById("needDetails")
-        .value
-        .trim();
-
-    const { error } = await supabaseClient
-      .from("requirements")
-      .insert({
-        title: title,
-        category: category,
-        location: location,
-        details: details,
-        status: "open"
-      });
-
-    if (error) {
-      alert(
-        "Requirement could not be submitted.\\n\\n" +
-        error.message
-      );
-      return;
-    }
-
-    alert(
-      "Requirement submitted successfully!\\n\\n" +
-      "Providers will be able to find your requirement."
-    );
-
-    event.target.reset();
-  }
-
-
-  function getCurrentUser() {
-    if (
-      typeof supabaseClient === "undefined" ||
-      !supabaseClient.auth
-    ) {
-      return null;
-    }
-
-    return window.currentUser || null;
-  }
-
-
-  function openAuth(mode) {
-
-    switchAuthMode(mode);
-
-    const section =
+    const authSection =
       document.getElementById("authSection");
 
-    section.classList.remove("hidden");
+    const loginButton =
+      document.getElementById("loginButton");
 
-    section.scrollIntoView({
-      behavior: "smooth"
-    });
-
-  }
-
-
-  function switchAuthMode(mode) {
-
-    authMode = mode;
+    const signUpButton =
+      document.getElementById("signUpButton");
 
     const loginTab =
       document.getElementById("loginTab");
@@ -1148,265 +1155,133 @@
     const signupTab =
       document.getElementById("signupTab");
 
-    const title =
-      document.getElementById("authTitle");
+    const authForm =
+      document.getElementById("authForm");
 
-    const description =
-      document.getElementById("authDescription");
-
-    const submit =
-      document.getElementById("authSubmit");
-
-    clearAuthMessage();
-
-    if (mode === "login") {
-
-      loginTab.classList.add("active");
-      signupTab.classList.remove("active");
-
-      title.textContent = "Login";
-
-      description.textContent =
-        "Login to your NeedFinder Global account.";
-
-      submit.textContent = "Login";
-
-    } else {
-
-      signupTab.classList.add("active");
-      loginTab.classList.remove("active");
-
-      title.textContent = "Create Account";
-
-      description.textContent =
-        "Create your NeedFinder Global account.";
-
-      submit.textContent = "Create Account";
-    }
-  }
+    const providerButton =
+      document.getElementById("providerButton");
 
 
-  async function handleAuth(event) {
+    function openAuth(mode) {
 
-    event.preventDefault();
+      if (!authSection) return;
 
-    const email =
-      document
-        .getElementById("authEmail")
-        .value
-        .trim();
+      authSection.classList.remove("hidden");
 
-    const password =
-      document
-        .getElementById("authPassword")
-        .value;
+      if (mode === "signup") {
 
-    const submit =
-      document.getElementById("authSubmit");
-
-    submit.disabled = true;
-
-    submit.textContent =
-      authMode === "login"
-        ? "Logging in..."
-        : "Creating account...";
-
-    clearAuthMessage();
-
-    try {
-
-      if (authMode === "signup") {
-
-        const { data, error } =
-          await supabaseClient.auth.signUp({
-            email: email,
-            password: password
-          });
-
-        if (error) {
-          throw error;
-        }
-
-        if (data.session) {
-
-          showAuthMessage(
-            "Account created successfully. You are now logged in.",
-            "success"
-          );
-
-        } else {
-
-          showAuthMessage(
-            "Account created. Check your email to confirm your account, then login.",
-            "success"
-          );
-
+        if (typeof switchAuthMode === "function") {
+          switchAuthMode("signup");
         }
 
       } else {
 
-        const { data, error } =
-          await supabaseClient.auth.signInWithPassword({
-            email: email,
-            password: password
-          });
-
-        if (error) {
-          throw error;
+        if (typeof switchAuthMode === "function") {
+          switchAuthMode("login");
         }
 
-        showAuthMessage(
-          "Login successful.",
-          "success"
-        );
-
-        updateAuthUI(data.user);
-
-        setTimeout(function() {
-          document
-            .getElementById("authSection")
-            .classList.add("hidden");
-        }, 800);
-
       }
 
-    } catch (error) {
+      authSection.scrollIntoView({
+        behavior: "smooth"
+      });
+    }
 
-      showAuthMessage(
-        error.message || "Authentication failed.",
-        "error"
+
+    if (loginButton) {
+
+      loginButton.addEventListener(
+        "click",
+        function () {
+          openAuth("login");
+        }
       );
 
-    } finally {
-
-      submit.disabled = false;
-
-      submit.textContent =
-        authMode === "login"
-          ? "Login"
-          : "Create Account";
-    }
-  }
-
-
-  async function logoutUser() {
-
-    const { error } =
-      await supabaseClient.auth.signOut();
-
-    if (error) {
-      alert("Logout error: " + error.message);
-      return;
     }
 
-    window.currentUser = null;
 
-    updateAuthUI(null);
+    if (signUpButton) {
 
-    alert("You have been logged out.");
-  }
+      signUpButton.addEventListener(
+        "click",
+        function () {
+          openAuth("signup");
+        }
+      );
 
-
-  function updateAuthUI(user) {
-
-    window.currentUser = user || null;
-
-    const userEmail =
-      document.getElementById("userEmail");
-
-    const loginButton =
-      document.getElementById("loginButton");
-
-    const signupButton =
-      document.getElementById("signupButton");
-
-    const logoutButton =
-      document.getElementById("logoutButton");
-
-    if (user) {
-
-      userEmail.textContent =
-        user.email || "Logged in";
-
-      userEmail.classList.remove("hidden");
-
-      loginButton.classList.add("hidden");
-
-      signupButton.classList.add("hidden");
-
-      logoutButton.classList.remove("hidden");
-
-    } else {
-
-      userEmail.classList.add("hidden");
-
-      loginButton.classList.remove("hidden");
-
-      signupButton.classList.remove("hidden");
-
-      logoutButton.classList.add("hidden");
-    }
-  }
-
-
-  function showAuthMessage(message, type) {
-
-    const box =
-      document.getElementById("authMessage");
-
-    box.textContent = message;
-
-    box.className =
-      "auth-message " + type;
-  }
-
-
-  function clearAuthMessage() {
-
-    const box =
-      document.getElementById("authMessage");
-
-    box.textContent = "";
-
-    box.className = "auth-message";
-  }
-
-
-  async function initializeAuth() {
-
-    if (
-      typeof supabaseClient === "undefined" ||
-      !supabaseClient.auth
-    ) {
-      console.error("Supabase client is not available.");
-      return;
     }
 
-    const { data } =
-      await supabaseClient.auth.getSession();
 
-    updateAuthUI(
-      data.session
-        ? data.session.user
-        : null
-    );
+    if (loginTab) {
 
-    supabaseClient.auth.onAuthStateChange(
-      function(event, session) {
+      loginTab.addEventListener(
+        "click",
+        function () {
 
-        updateAuthUI(
-          session
-            ? session.user
-            : null
-        );
+          if (
+            typeof switchAuthMode === "function"
+          ) {
+            switchAuthMode("login");
+          }
 
-      }
-    );
-  }
+        }
+      );
+
+    }
 
 
-  initializeAuth();
+    if (signupTab) {
 
+      signupTab.addEventListener(
+        "click",
+        function () {
+
+          if (
+            typeof switchAuthMode === "function"
+          ) {
+            switchAuthMode("signup");
+          }
+
+        }
+      );
+
+    }
+
+
+    if (authForm) {
+
+      authForm.addEventListener(
+        "submit",
+        function (event) {
+
+          if (
+            typeof handleAuth === "function"
+          ) {
+            handleAuth(event);
+          }
+
+        }
+      );
+
+    }
+
+
+    if (providerButton) {
+
+      providerButton.addEventListener(
+        "click",
+        function () {
+
+          alert(
+            "Provider registration will be added next."
+          );
+
+        }
+      );
+
+    }
+
+  });
 </script>
 
 </body>
