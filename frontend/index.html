@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -7,11 +6,10 @@
 
   <title>NeedFinder Global</title>
 
-<meta
-name="description"
-content="NeedFinder Global connects customers with products, services, property, jobs and other legal needs worldwide."
-
->
+  <meta
+    name="description"
+    content="NeedFinder Global connects customers with products, services, property, jobs and other legal needs worldwide."
+  >
 
   <style>
     * {
@@ -51,6 +49,10 @@ content="NeedFinder Global connects customers with products, services, property,
       width: min(1180px, 92%);
       margin: auto;
     }
+
+    /* ==========================================
+       HEADER
+       ========================================== */
 
     header {
       background: #fff;
@@ -94,29 +96,22 @@ content="NeedFinder Global connects customers with products, services, property,
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
-    .auth-area {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .auth-user {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .auth-user span {
+    .user-email {
       font-size: 13px;
       color: #596579;
       max-width: 180px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      margin-right: 4px;
     }
+
+    /* ==========================================
+       BUTTONS
+       ========================================== */
 
     .btn {
       border: 0;
@@ -158,10 +153,27 @@ content="NeedFinder Global connects customers with products, services, property,
       background: #fecaca;
     }
 
+    .hidden {
+      display: none !important;
+    }
+
+    /* ==========================================
+       HERO
+       ========================================== */
+
     .hero {
       background:
-        radial-gradient(circle at top right, #dce8ff 0, transparent 35%),
-        linear-gradient(135deg, #eef4ff, #fff);
+        radial-gradient(
+          circle at top right,
+          #dce8ff 0,
+          transparent 35%
+        ),
+        linear-gradient(
+          135deg,
+          #eef4ff,
+          #fff
+        );
+
       padding: 80px 0 70px;
     }
 
@@ -200,6 +212,10 @@ content="NeedFinder Global connects customers with products, services, property,
       font-size: 18px;
     }
 
+    /* ==========================================
+       SEARCH
+       ========================================== */
+
     .search-box {
       background: white;
       margin: 35px auto 0;
@@ -219,7 +235,7 @@ content="NeedFinder Global connects customers with products, services, property,
       padding: 14px;
       outline: none;
       background: white;
-      width: 100%;
+      min-width: 0;
     }
 
     .search-box input:focus,
@@ -230,6 +246,91 @@ content="NeedFinder Global connects customers with products, services, property,
       border-color: #1457d9;
       box-shadow: 0 0 0 3px rgba(20, 87, 217, 0.1);
     }
+
+    /* ==========================================
+       SEARCH RESULTS
+       ========================================== */
+
+    #searchResults {
+      margin-top: 30px;
+      text-align: left;
+    }
+
+    .requirement-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 15px;
+      padding: 22px;
+      margin-bottom: 15px;
+      box-shadow: 0 5px 20px rgba(25, 45, 90, 0.05);
+    }
+
+    .requirement-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .requirement-category,
+    .requirement-status {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .requirement-category {
+      background: #e5edff;
+      color: #1457d9;
+    }
+
+    .requirement-status {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .requirement-card h3 {
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
+
+    .requirement-card p {
+      color: #596579;
+      margin-bottom: 12px;
+    }
+
+    .requirement-location {
+      color: #4b5563;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .requirement-card small {
+      color: #7b8494;
+    }
+
+    .no-results {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .no-results h3 {
+      margin-bottom: 8px;
+    }
+
+    .no-results p {
+      color: #6b7280;
+    }
+
+    /* ==========================================
+       GENERAL SECTIONS
+       ========================================== */
 
     section {
       padding: 65px 0;
@@ -248,6 +349,10 @@ content="NeedFinder Global connects customers with products, services, property,
     .section-title p {
       color: #6b7280;
     }
+
+    /* ==========================================
+       CATEGORIES
+       ========================================== */
 
     .categories {
       display: grid;
@@ -286,6 +391,10 @@ content="NeedFinder Global connects customers with products, services, property,
       font-size: 13px;
     }
 
+    /* ==========================================
+       HOW IT WORKS
+       ========================================== */
+
     .steps {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -320,6 +429,10 @@ content="NeedFinder Global connects customers with products, services, property,
       color: #6b7280;
     }
 
+    /* ==========================================
+       POST REQUIREMENT
+       ========================================== */
+
     .requirement-section {
       background: #101828;
       color: white;
@@ -350,6 +463,14 @@ content="NeedFinder Global connects customers with products, services, property,
       border-radius: 18px;
     }
 
+    .requirement-form h2 {
+      margin-bottom: 20px;
+    }
+
+    /* ==========================================
+       FORM
+       ========================================== */
+
     .form-group {
       margin-bottom: 15px;
     }
@@ -376,6 +497,10 @@ content="NeedFinder Global connects customers with products, services, property,
       min-height: 100px;
       resize: vertical;
     }
+
+    /* ==========================================
+       AUTH SECTION
+       ========================================== */
 
     .auth-section {
       background: #fff;
@@ -411,6 +536,7 @@ content="NeedFinder Global connects customers with products, services, property,
       background: white;
       padding: 10px;
       border-radius: 9px;
+      cursor: pointer;
       font-weight: 700;
     }
 
@@ -440,75 +566,17 @@ content="NeedFinder Global connects customers with products, services, property,
       color: #991b1b;
     }
 
-    .search-results-section {
-      background: #fff;
-    }
+    /* ==========================================
+       PROVIDER
+       ========================================== */
 
-    #searchResults {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    .requirement-card {
-      background: #fff;
-      border: 1px solid #e5e7eb;
-      border-radius: 15px;
-      padding: 20px;
-      margin-bottom: 15px;
-      box-shadow: 0 5px 20px rgba(25, 45, 90, 0.05);
-    }
-
-    .requirement-card-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    .requirement-category,
-    .requirement-status {
-      font-size: 12px;
-      font-weight: 700;
-      padding: 5px 9px;
-      border-radius: 20px;
-      background: #eef3ff;
-      color: #1457d9;
-    }
-
-    .requirement-status {
-      background: #dcfce7;
-      color: #166534;
-    }
-
-    .requirement-card h3 {
-      margin-bottom: 8px;
-    }
-
-    .requirement-card p {
-      color: #596579;
-      margin-bottom: 10px;
-    }
-
-    .requirement-location {
-      color: #596579;
-      margin-bottom: 8px;
-    }
-
-    .requirement-card small {
-      color: #8a93a3;
-    }
-
-    .no-results {
+    .provider-box {
       text-align: center;
-      padding: 35px;
-      border: 1px dashed #d9dee8;
-      border-radius: 15px;
     }
 
-    .no-results p {
-      color: #6b7280;
-      margin-top: 8px;
-    }
+    /* ==========================================
+       FOOTER
+       ========================================== */
 
     footer {
       background: white;
@@ -528,11 +596,12 @@ content="NeedFinder Global connects customers with products, services, property,
       font-size: 14px;
     }
 
-    .hidden {
-      display: none !important;
-    }
+    /* ==========================================
+       MOBILE
+       ========================================== */
 
-    @media (max-width: 900px) {
+    @media (max-width: 1000px) {
+
       nav {
         display: none;
       }
@@ -548,15 +617,21 @@ content="NeedFinder Global connects customers with products, services, property,
       .requirement-wrapper {
         grid-template-columns: 1fr;
       }
+
     }
 
     @media (max-width: 600px) {
+
       .hero {
         padding: 55px 0;
       }
 
       .hero h1 {
         font-size: 42px;
+      }
+
+      .hero p {
+        font-size: 16px;
       }
 
       .categories {
@@ -567,722 +642,936 @@ content="NeedFinder Global connects customers with products, services, property,
         grid-template-columns: 1fr;
       }
 
-      .nav-actions > .btn-primary {
-        display: none;
-      }
-
-      .auth-user span {
-        display: none;
+      .requirement-copy h2 {
+        font-size: 32px;
       }
 
       .footer-content {
         flex-direction: column;
         text-align: center;
       }
+
+      .user-email {
+        display: none;
+      }
+
+      .nav-actions {
+        gap: 5px;
+      }
+
+      .nav-actions .btn {
+        padding: 9px 11px;
+        font-size: 13px;
+      }
+
+      .nav-actions .btn-primary:last-child {
+        display: none;
+      }
+
     }
   </style>
-
 </head>
 
 <body>
 
-<header>
-  <div class="container nav">
+  <!-- ==========================================
+       HEADER
+       ========================================== -->
 
-```
-<a href="#" class="logo">
-  NeedFinder<span>Global</span>
-</a>
+  <header>
+    <div class="container nav">
 
-<nav>
-  <a href="#categories">Categories</a>
-  <a href="#how-it-works">How it works</a>
-  <a href="#post-need">Post a Need</a>
-  <a href="#provider">For Providers</a>
-</nav>
+      <a href="#" class="logo">
+        NeedFinder<span>Global</span>
+      </a>
 
-<div class="nav-actions">
+      <nav>
+        <a href="#categories">Categories</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#post-need">Post a Need</a>
+        <a href="#provider">For Providers</a>
+      </nav>
 
-  <div id="authArea" class="auth-area">
-    <button
-      id="loginButton"
-      type="button"
-      class="btn btn-light"
-    >
-      Login
-    </button>
+      <div class="nav-actions">
 
-    <button
-      id="signUpButton"
-      type="button"
-      class="btn btn-primary"
-    >
-      Sign Up
-    </button>
-  </div>
+        <span
+          id="userEmail"
+          class="user-email hidden">
+        </span>
 
-  <button
-    type="button"
-    class="btn btn-primary"
-    data-action="post-need"
-  >
-    Post a Need
-  </button>
+        <button
+          type="button"
+          id="loginButton"
+          class="btn btn-light">
+          Login
+        </button>
 
-</div>
-```
+        <button
+          type="button"
+          id="signUpButton"
+          class="btn btn-primary">
+          Sign Up
+        </button>
 
-  </div>
-</header>
+        <button
+          type="button"
+          id="logoutButton"
+          class="btn btn-danger hidden">
+          Logout
+        </button>
 
-<main>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-action="post-need">
+          Post a Need
+        </button>
 
-  <section class="hero">
+      </div>
 
-```
-<div class="container hero-content">
-
-  <div class="badge">
-    🌍 Global marketplace for real-world needs
-  </div>
-
-  <h1>
-    Tell us what you <span>need.</span><br>
-    Find who can provide it.
-  </h1>
-
-  <p>
-    Search products, services, property, vehicles, jobs,
-    remote work and other legal requirements anywhere in the world.
-  </p>
-
-  <div class="search-box">
-
-    <input
-      id="searchInput"
-      type="text"
-      placeholder="What are you looking for?"
-    >
-
-    <select id="countrySelect">
-      <option value="">Select country</option>
-      <option>Pakistan</option>
-      <option>India</option>
-      <option>United States</option>
-      <option>United Kingdom</option>
-      <option>Canada</option>
-      <option>Australia</option>
-      <option>United Arab Emirates</option>
-      <option>Germany</option>
-      <option>Singapore</option>
-      <option>Saudi Arabia</option>
-      <option>Qatar</option>
-      <option>Turkey</option>
-      <option>Malaysia</option>
-      <option>Other</option>
-    </select>
-
-    <button
-      id="searchButton"
-      type="button"
-      class="btn btn-primary"
-    >
-      Search
-    </button>
-
-  </div>
-
-</div>
-```
-
-  </section>
-
-  <section id="search-section" class="search-results-section">
-
-```
-<div class="container">
-
-  <div class="section-title">
-    <h2>Search Results</h2>
-    <p>Find open requirements from around the world.</p>
-  </div>
-
-  <div id="searchResults">
-    <div class="no-results">
-      <h3>Search for a requirement</h3>
-      <p>Enter a need or select a country above.</p>
     </div>
-  </div>
+  </header>
 
-</div>
-```
 
-  </section>
+  <main>
 
-  <section id="categories">
+    <!-- ==========================================
+         HERO
+         ========================================== -->
 
-```
-<div class="container">
+    <section class="hero">
 
-  <div class="section-title">
-    <h2>Explore Categories</h2>
-    <p>Whatever you need, start your search here.</p>
-  </div>
+      <div class="container hero-content">
 
-  <div class="categories">
+        <div class="badge">
+          🌍 Global marketplace for real-world needs
+        </div>
 
-    <div class="category" data-category="Products">
-      <div class="category-icon">🛍️</div>
-      <h3>Products</h3>
-      <p>Buy & sell products</p>
-    </div>
+        <h1>
+          Tell us what you <span>need.</span><br>
+          Find who can provide it.
+        </h1>
 
-    <div class="category" data-category="Services">
-      <div class="category-icon">🛠️</div>
-      <h3>Services</h3>
-      <p>Find skilled providers</p>
-    </div>
+        <p>
+          Search products, services, property, vehicles,
+          jobs, remote work and other legal requirements
+          anywhere in the world.
+        </p>
 
-    <div class="category" data-category="Property">
-      <div class="category-icon">🏠</div>
-      <h3>Property</h3>
-      <p>Homes & commercial</p>
-    </div>
+        <div class="search-box">
 
-    <div class="category" data-category="Vehicles">
-      <div class="category-icon">🚗</div>
-      <h3>Vehicles</h3>
-      <p>Cars & transportation</p>
-    </div>
+          <input
+            id="searchInput"
+            type="text"
+            placeholder="What are you looking for?"
+          >
 
-    <div class="category" data-category="Jobs">
-      <div class="category-icon">💼</div>
-      <h3>Jobs</h3>
-      <p>Jobs & opportunities</p>
-    </div>
+          <select id="countrySelect">
 
-    <div class="category" data-category="Remote Work">
-      <div class="category-icon">💻</div>
-      <h3>Remote Work</h3>
-      <p>Work from anywhere</p>
-    </div>
+            <option value="">
+              Select country
+            </option>
 
-    <div class="category" data-category="Clothing">
-      <div class="category-icon">👕</div>
-      <h3>Clothing</h3>
-      <p>Fashion & apparel</p>
-    </div>
+            <option>Pakistan</option>
+            <option>India</option>
+            <option>United States</option>
+            <option>United Kingdom</option>
+            <option>Canada</option>
+            <option>Australia</option>
+            <option>United Arab Emirates</option>
+            <option>Germany</option>
+            <option>Singapore</option>
+            <option>Saudi Arabia</option>
+            <option>Qatar</option>
+            <option>Malaysia</option>
+            <option>Turkey</option>
+            <option>Other</option>
 
-    <div class="category" data-category="Electronics">
-      <div class="category-icon">📱</div>
-      <h3>Electronics</h3>
-      <p>Tech & devices</p>
-    </div>
+          </select>
 
-    <div class="category" data-category="Travel">
-      <div class="category-icon">✈️</div>
-      <h3>Travel</h3>
-      <p>Travel-related needs</p>
-    </div>
+          <button
+            id="searchButton"
+            type="button"
+            class="btn btn-primary">
+            Search
+          </button>
 
-    <div class="category" data-category="Other">
-      <div class="category-icon">🔎</div>
-      <h3>Other Needs</h3>
-      <p>Tell us what you need</p>
-    </div>
+        </div>
 
-  </div>
+        <div id="searchResults"></div>
 
-</div>
-```
+      </div>
 
-  </section>
+    </section>
 
-  <section id="how-it-works">
 
-```
-<div class="container">
+    <!-- ==========================================
+         CATEGORIES
+         ========================================== -->
 
-  <div class="section-title">
-    <h2>How NeedFinder Works</h2>
-    <p>Simple for customers. Useful for providers.</p>
-  </div>
+    <section id="categories">
 
-  <div class="steps">
+      <div class="container">
 
-    <div class="step">
-      <div class="step-number">1</div>
-      <h3>Describe your need</h3>
+        <div class="section-title">
+
+          <h2>
+            Explore Categories
+          </h2>
+
+          <p>
+            Whatever you need, start your search here.
+          </p>
+
+        </div>
+
+        <div class="categories">
+
+          <div
+            class="category"
+            data-category="Products">
+
+            <div class="category-icon">
+              🛍️
+            </div>
+
+            <h3>
+              Products
+            </h3>
+
+            <p>
+              Buy & sell products
+            </p>
+
+          </div>
+
+
+          <div
+            class="category"
+            data-category="Services">
+
+            <div class="category-icon">
+              🛠️
+            </div>
+
+            <h3>
+              Services
+            </h3>
+
+            <p>
+              Find skilled providers
+            </p>
+
+          </div>
+
+
+          <div
+            class="category"
+            data-category="Property">
+
+            <div class="category-icon">
+              🏠
+            </div>
+
+            <h3>
+              Property
+            </h3>
+
+            <p>
+              Homes & commercial
+            </p>
+
+          </div>
+
+
+          <div
+            class="category"
+            data-category="Vehicles">
+
+            <div class="category-icon">
+              🚗
+            </div>
+
+            <h3>
+              Vehicles
+            </h3>
+
+            <p>
+              Cars & transportation
+            </p>
+
+          </div>
+
+
+          <div
+            class="category"
+            data-category="Jobs">
+
+            <div class="category-icon">
+              💼
+            </div>
+
+            <h3>
+              Jobs
+            </h3>
+
+            <p>
+              Jobs & opportunities
+            </p>
+
+          </div>
+
+
+          <div
+            class="category"
+            data-category="Remote Work">
+
+            <div class="category-icon">
+              💻
+            </div>
+
+            <h3>
+              Remote Work
+            </h3>
+
+            <p>
+              Work from anywhere
+            </p>
+
+          </div>
+
+
+          <div
+            class="category"
+            data-category="Clothing">
+
+            <div class="category-icon">
+              👕
+            </div>
+
+            <h3>
+              Clothing
+            </h3>
+
+            <p>
+              Fashion & apparel
+            </p>
+
+          </div>
+
+
+          <div
+            class="category"
+            data-category="Electronics">
+
+            <div class="category-icon">
+              📱
+            </div>
+
+            <h3>
+              Electronics
+            </h3>
+
+            <p>
+              Tech & devices
+            </p>
+
+          </div>
+
+
+          <div
+            class="category"
+            data-category="Travel">
+
+            <div class="category-icon">
+              ✈️
+            </div>
+
+            <h3>
+              Travel
+            </h3>
+
+            <p>
+              Travel-related needs
+            </p>
+
+          </div>
+
+
+          <div
+            class="category"
+            data-category="Other">
+
+            <div class="category-icon">
+              🔎
+            </div>
+
+            <h3>
+              Other Needs
+            </h3>
+
+            <p>
+              Tell us what you need
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==========================================
+         HOW IT WORKS
+         ========================================== -->
+
+    <section id="how-it-works">
+
+      <div class="container">
+
+        <div class="section-title">
+
+          <h2>
+            How NeedFinder Works
+          </h2>
+
+          <p>
+            Simple for customers. Useful for providers.
+          </p>
+
+        </div>
+
+        <div class="steps">
+
+          <div class="step">
+
+            <div class="step-number">
+              1
+            </div>
+
+            <h3>
+              Describe your need
+            </h3>
+
+            <p>
+              Tell us what product, service,
+              property, job or other requirement
+              you are looking for.
+            </p>
+
+          </div>
+
+
+          <div class="step">
+
+            <div class="step-number">
+              2
+            </div>
+
+            <h3>
+              Choose your location
+            </h3>
+
+            <p>
+              Select your country and city so
+              relevant providers can be found
+              near your requirement.
+            </p>
+
+          </div>
+
+
+          <div class="step">
+
+            <div class="step-number">
+              3
+            </div>
+
+            <h3>
+              Connect with providers
+            </h3>
+
+            <p>
+              Review suitable offers and contact
+              the providers that match your
+              requirement.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==========================================
+         POST A NEED
+         ========================================== -->
+
+    <section
+      class="requirement-section"
+      id="post-need">
+
+      <div class="container requirement-wrapper">
+
+        <div class="requirement-copy">
+
+          <h2>
+            Can't find what you need?
+          </h2>
+
+          <p>
+            Post your requirement. Providers can
+            respond with suitable products, services
+            or offers.
+          </p>
+
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-action="post-need">
+            Post Requirement
+          </button>
+
+        </div>
+
+
+        <div
+          class="requirement-form">
+
+          <h2>
+            Post a Requirement
+          </h2>
+
+          <form id="requirementForm">
+
+            <div class="form-group">
+
+              <label for="needTitle">
+                What do you need?
+              </label>
+
+              <input
+                id="needTitle"
+                type="text"
+                placeholder="Example: Used Toyota Corolla"
+                required
+              >
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="needCategory">
+                Category
+              </label>
+
+              <select
+                id="needCategory"
+                required>
+
+                <option value="">
+                  Select category
+                </option>
+
+                <option>Products</option>
+                <option>Services</option>
+                <option>Property</option>
+                <option>Vehicles</option>
+                <option>Jobs</option>
+                <option>Remote Work</option>
+                <option>Clothing</option>
+                <option>Electronics</option>
+                <option>Travel</option>
+                <option>Other</option>
+
+              </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="needLocation">
+                Country / City
+              </label>
+
+              <input
+                id="needLocation"
+                type="text"
+                placeholder="Example: Islamabad, Pakistan"
+                required
+              >
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="needDetails">
+                Requirement details
+              </label>
+
+              <textarea
+                id="needDetails"
+                placeholder="Describe your requirement..."
+                required>
+              </textarea>
+
+            </div>
+
+
+            <button
+              type="submit"
+              class="btn btn-primary"
+              style="width:100%;">
+              Submit Requirement
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==========================================
+         PROVIDERS
+         ========================================== -->
+
+    <section id="provider">
+
+      <div class="container">
+
+        <div class="section-title">
+
+          <h2>
+            Are you a Provider?
+          </h2>
+
+          <p>
+            List your products or services and
+            connect with customers looking for
+            what you offer.
+          </p>
+
+        </div>
+
+        <div class="provider-box">
+
+          <button
+            type="button"
+            class="btn btn-primary"
+            onclick="alert('Provider registration will be added next.')">
+            Become a Provider
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==========================================
+         AUTHENTICATION
+         ========================================== -->
+
+    <section
+      id="authSection"
+      class="auth-section hidden">
+
+      <div class="container">
+
+        <div class="auth-card">
+
+          <div class="auth-tabs">
+
+            <button
+              type="button"
+              id="loginTab"
+              class="auth-tab active"
+              onclick="switchAuthMode('login')">
+              Login
+            </button>
+
+            <button
+              type="button"
+              id="signupTab"
+              class="auth-tab"
+              onclick="switchAuthMode('signup')">
+              Sign Up
+            </button>
+
+          </div>
+
+
+          <h2 id="authTitle">
+            Login
+          </h2>
+
+          <p id="authDescription">
+            Login to your NeedFinder Global account.
+          </p>
+
+
+          <form id="authForm">
+
+            <div class="form-group">
+
+              <label for="authEmail">
+                Email
+              </label>
+
+              <input
+                id="authEmail"
+                type="email"
+                placeholder="you@example.com"
+                autocomplete="email"
+                required
+              >
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="authPassword">
+                Password
+              </label>
+
+              <input
+                id="authPassword"
+                type="password"
+                placeholder="Minimum 6 characters"
+                minlength="6"
+                autocomplete="current-password"
+                required
+              >
+
+            </div>
+
+
+            <button
+              id="authSubmit"
+              type="submit"
+              class="btn btn-primary"
+              style="width:100%;">
+              Login
+            </button>
+
+          </form>
+
+
+          <div
+            id="authMessage"
+            class="auth-message">
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ==========================================
+       FOOTER
+       ========================================== -->
+
+  <footer>
+
+    <div class="container footer-content">
+
+      <a href="#" class="logo">
+        NeedFinder<span>Global</span>
+      </a>
+
       <p>
-        Tell us what product, service, property, job or
-        other requirement you are looking for.
+        © 2026 NeedFinder Global.
+        Marketplace foundation.
       </p>
-    </div>
-
-    <div class="step">
-      <div class="step-number">2</div>
-      <h3>Choose your location</h3>
-      <p>
-        Select your country and city so relevant providers
-        can be found near your requirement.
-      </p>
-    </div>
-
-    <div class="step">
-      <div class="step-number">3</div>
-      <h3>Connect with providers</h3>
-      <p>
-        Review suitable requirements and connect with
-        providers that match your needs.
-      </p>
-    </div>
-
-  </div>
-
-</div>
-```
-
-  </section>
-
-  <section class="requirement-section" id="post-need">
-
-```
-<div class="container requirement-wrapper">
-
-  <div class="requirement-copy">
-
-    <h2>
-      Can't find what you need?
-    </h2>
-
-    <p>
-      Post your requirement. Providers can find your
-      requirement and respond with suitable offers.
-    </p>
-
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-action="post-need"
-    >
-      Post Requirement
-    </button>
-
-  </div>
-
-
-  <div class="requirement-form">
-
-    <h2 style="margin-bottom:20px;">
-      Post a Requirement
-    </h2>
-
-    <form id="requirementForm">
-
-      <div class="form-group">
-
-        <label for="needTitle">
-          What do you need?
-        </label>
-
-        <input
-          id="needTitle"
-          type="text"
-          placeholder="Example: Used Toyota Corolla"
-          required
-        >
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label for="needCategory">
-          Category
-        </label>
-
-        <select id="needCategory" required>
-
-          <option value="">
-            Select category
-          </option>
-
-          <option>Products</option>
-          <option>Services</option>
-          <option>Property</option>
-          <option>Vehicles</option>
-          <option>Jobs</option>
-          <option>Remote Work</option>
-          <option>Clothing</option>
-          <option>Electronics</option>
-          <option>Travel</option>
-          <option>Other</option>
-
-        </select>
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label for="needLocation">
-          Country / City
-        </label>
-
-        <input
-          id="needLocation"
-          type="text"
-          placeholder="Example: Islamabad, Pakistan"
-          required
-        >
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label for="needDetails">
-          Requirement details
-        </label>
-
-        <textarea
-          id="needDetails"
-          placeholder="Describe your requirement..."
-          required
-        ></textarea>
-
-      </div>
-
-
-      <button
-        type="submit"
-        class="btn btn-primary"
-        style="width:100%;"
-      >
-        Submit Requirement
-      </button>
-
-    </form>
-
-  </div>
-
-</div>
-```
-
-  </section>
-
-  <section id="provider">
-
-```
-<div class="container">
-
-  <div class="section-title">
-
-    <h2>Are you a Provider?</h2>
-
-    <p>
-      List your products or services and connect with customers
-      looking for what you offer.
-    </p>
-
-  </div>
-
-  <div style="text-align:center;">
-
-    <button
-      type="button"
-      class="btn btn-primary"
-      id="providerButton"
-    >
-      Become a Provider
-    </button>
-
-  </div>
-
-</div>
-```
-
-  </section>
-
-  <section id="authSection" class="auth-section hidden">
-
-```
-<div class="container">
-
-  <div class="auth-card">
-
-    <div class="auth-tabs">
-
-      <button
-        type="button"
-        id="loginTab"
-        class="auth-tab active"
-      >
-        Login
-      </button>
-
-      <button
-        type="button"
-        id="signupTab"
-        class="auth-tab"
-      >
-        Sign Up
-      </button>
 
     </div>
 
-
-    <h2 id="authTitle">
-      Login
-    </h2>
-
-    <p id="authDescription">
-      Login to your NeedFinder Global account.
-    </p>
+  </footer>
 
 
-    <form id="authForm">
+  <!-- ==========================================
+       SUPABASE
+       ========================================== -->
 
-      <div class="form-group">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-        <label for="authEmail">
-          Email
-        </label>
+  <!-- Supabase configuration -->
+  <script src="config.js"></script>
 
-        <input
-          id="authEmail"
-          type="email"
-          placeholder="you@example.com"
-          required
-        >
-
-      </div>
+  <!-- Main application logic -->
+  <script src="app.js"></script>
 
 
-      <div class="form-group">
+  <!-- ==========================================
+       AUTH PAGE HELPERS
+       ========================================== -->
 
-        <label for="authPassword">
-          Password
-        </label>
+  <script>
 
-        <input
-          id="authPassword"
-          type="password"
-          placeholder="Minimum 6 characters"
-          minlength="6"
-          required
-        >
-
-      </div>
-
-
-      <button
-        id="authSubmit"
-        type="submit"
-        class="btn btn-primary"
-        style="width:100%;"
-      >
-        Login
-      </button>
-
-    </form>
-
-
-    <div
-      id="authMessage"
-      class="auth-message"
-    ></div>
-
-  </div>
-
-</div>
-```
-
-  </section>
-
-</main>
-
-<footer>
-
-  <div class="container footer-content">
-
-```
-<a href="#" class="logo">
-  NeedFinder<span>Global</span>
-</a>
-
-<p>
-  © 2026 NeedFinder Global. Marketplace foundation.
-</p>
-```
-
-  </div>
-
-</footer>
-
-<!-- Supabase -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<!-- Supabase configuration -->
-
-<script src="config.js"></script>
-
-<!-- Application -->
-
-<script src="app.js"></script>
-
-<script>
-  /*
-   * Small compatibility layer for the existing HTML.
-   * Main application logic remains inside app.js.
-   */
-
-  document.addEventListener("DOMContentLoaded", function () {
-
-    const authSection =
-      document.getElementById("authSection");
-
-    const loginButton =
-      document.getElementById("loginButton");
-
-    const signUpButton =
-      document.getElementById("signUpButton");
-
-    const loginTab =
-      document.getElementById("loginTab");
-
-    const signupTab =
-      document.getElementById("signupTab");
-
-    const authForm =
-      document.getElementById("authForm");
-
-    const providerButton =
-      document.getElementById("providerButton");
+    let authMode = "login";
 
 
     function openAuth(mode) {
 
-      if (!authSection) return;
+      switchAuthMode(mode);
 
-      authSection.classList.remove("hidden");
+      const section =
+        document.getElementById("authSection");
 
-      if (mode === "signup") {
+      if (!section) {
+        return;
+      }
 
-        if (typeof switchAuthMode === "function") {
-          switchAuthMode("signup");
+      section.classList.remove("hidden");
+
+      section.scrollIntoView({
+        behavior: "smooth"
+      });
+
+    }
+
+
+    function switchAuthMode(mode) {
+
+      authMode = mode;
+
+      const loginTab =
+        document.getElementById("loginTab");
+
+      const signupTab =
+        document.getElementById("signupTab");
+
+      const title =
+        document.getElementById("authTitle");
+
+      const description =
+        document.getElementById("authDescription");
+
+      const submit =
+        document.getElementById("authSubmit");
+
+      const password =
+        document.getElementById("authPassword");
+
+      if (!loginTab ||
+          !signupTab ||
+          !title ||
+          !description ||
+          !submit) {
+        return;
+      }
+
+      clearAuthMessage();
+
+      if (mode === "login") {
+
+        loginTab.classList.add("active");
+        signupTab.classList.remove("active");
+
+        title.textContent =
+          "Login";
+
+        description.textContent =
+          "Login to your NeedFinder Global account.";
+
+        submit.textContent =
+          "Login";
+
+        if (password) {
+          password.setAttribute(
+            "autocomplete",
+            "current-password"
+          );
         }
 
       } else {
 
-        if (typeof switchAuthMode === "function") {
-          switchAuthMode("login");
+        signupTab.classList.add("active");
+        loginTab.classList.remove("active");
+
+        title.textContent =
+          "Create Account";
+
+        description.textContent =
+          "Create your NeedFinder Global account.";
+
+        submit.textContent =
+          "Create Account";
+
+        if (password) {
+          password.setAttribute(
+            "autocomplete",
+            "new-password"
+          );
         }
 
       }
 
-      authSection.scrollIntoView({
-        behavior: "smooth"
-      });
     }
 
 
-    if (loginButton) {
+    function showAuthMessage(message, type) {
 
-      loginButton.addEventListener(
-        "click",
-        function () {
-          openAuth("login");
-        }
-      );
+      const box =
+        document.getElementById(
+          "authMessage"
+        );
 
-    }
+      if (!box) {
+        return;
+      }
 
+      box.textContent =
+        message;
 
-    if (signUpButton) {
-
-      signUpButton.addEventListener(
-        "click",
-        function () {
-          openAuth("signup");
-        }
-      );
+      box.className =
+        "auth-message " + type;
 
     }
 
 
-    if (loginTab) {
+    function clearAuthMessage() {
 
-      loginTab.addEventListener(
-        "click",
-        function () {
+      const box =
+        document.getElementById(
+          "authMessage"
+        );
 
-          if (
-            typeof switchAuthMode === "function"
-          ) {
-            switchAuthMode("login");
-          }
+      if (!box) {
+        return;
+      }
 
-        }
-      );
+      box.textContent =
+        "";
 
-    }
-
-
-    if (signupTab) {
-
-      signupTab.addEventListener(
-        "click",
-        function () {
-
-          if (
-            typeof switchAuthMode === "function"
-          ) {
-            switchAuthMode("signup");
-          }
-
-        }
-      );
+      box.className =
+        "auth-message";
 
     }
 
 
-    if (authForm) {
-
-      authForm.addEventListener(
-        "submit",
-        function (event) {
-
-          if (
-            typeof handleAuth === "function"
-          ) {
-            handleAuth(event);
-          }
-
-        }
-      );
-
+    function showMessage(message) {
+      alert(message);
     }
 
-
-    if (providerButton) {
-
-      providerButton.addEventListener(
-        "click",
-        function () {
-
-          alert(
-            "Provider registration will be added next."
-          );
-
-        }
-      );
-
-    }
-
-  });
-</script>
+  </script>
 
 </body>
 </html>
